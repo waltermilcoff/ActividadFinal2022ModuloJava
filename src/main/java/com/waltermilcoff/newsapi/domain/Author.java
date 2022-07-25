@@ -1,10 +1,9 @@
 package com.waltermilcoff.newsapi.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +16,9 @@ public class Author {
     private String lastname;
     private String fullname;
     private LocalDate createdAt;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Article> articles = new ArrayList<>();
 
     public Author() {
     }
