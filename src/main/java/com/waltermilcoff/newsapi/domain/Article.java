@@ -2,10 +2,7 @@ package com.waltermilcoff.newsapi.domain;
 
 import org.hibernate.annotations.ValueGenerationType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -21,12 +18,14 @@ public class Article {
     private LocalDate publishedAt;
     private String content;
     private String author;
-    private String source;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Source source;
 
     public Article() {
     }
 
-    public Article(String title, String description, String url, String urlToImage, LocalDate publishedAt, String content, String author, String source) {
+    public Article(String title, String description, String url, String urlToImage, LocalDate publishedAt, String content, String author, Source source) {
         this.title = title;
         this.description = description;
         this.url = url;
@@ -101,11 +100,11 @@ public class Article {
         this.author = author;
     }
 
-    public String getSource() {
+    public Source getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(Source source) {
         this.source = source;
     }
 
@@ -133,7 +132,7 @@ public class Article {
                 ", publishedAt=" + publishedAt +
                 ", content='" + content + '\'' +
                 ", author='" + author + '\'' +
-                ", source='" + source + '\'' +
+                ", source=" + source +
                 '}';
     }
 }
