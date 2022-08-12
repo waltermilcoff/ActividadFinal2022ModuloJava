@@ -3,12 +3,14 @@ package com.waltermilcoff.newsapi.controller;
 import com.waltermilcoff.newsapi.domain.Article;
 import com.waltermilcoff.newsapi.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ArticleController {
 
-    @Autowired
+
     private final ArticleRepository articleRepository;
 
 
@@ -26,21 +28,6 @@ public class ArticleController {
 
       -------------- Estraxto de RECETAS INFORMATORIO--------
 
-    @RequestMapping(value = "/receta", method = RequestMethod.POST)
-    public Receta createProducto(@RequestBody Receta receta) {
-        return recetaRepository.save(receta);
-    }
-
-    @RequestMapping(value = "/receta/{id}", method = RequestMethod.GET)
-    public Receta getRecetaPorId(@PathVariable("id") Long id) {
-        return recetaRepository.findById(id).get();
-    }
-
-    @RequestMapping(value = "/receta", method = RequestMethod.GET)
-    public ResponseEntity<?> getAll() {
-        return new ResponseEntity(recetaRepository.findAll(), HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/receta/{id}", method = RequestMethod.PUT)
     public Receta modificarProducto(@PathVariable("id") Long id, @RequestBody Receta receta) {
         Receta recetaExistente = recetaRepository.findById(id).get();
@@ -57,6 +44,17 @@ public class ArticleController {
 
    @RequestMapping(value = "/article", method = RequestMethod.POST)
     public Article createArticle(@RequestBody Article article){
-        return articleRepository.save(article);
+
+       return articleRepository.save(article);
+    }
+
+    @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
+    public Article getArticlePorId(@PathVariable("id") Integer id) {
+        return articleRepository.findById(id).get();
+    }
+
+    @RequestMapping(value = "/article", method = RequestMethod.GET)
+    public ResponseEntity<?> getAll() {
+        return new ResponseEntity(articleRepository.findAll(), HttpStatus.OK);
     }
 }

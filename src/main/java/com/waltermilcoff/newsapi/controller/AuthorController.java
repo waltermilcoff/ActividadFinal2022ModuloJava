@@ -3,12 +3,14 @@ package com.waltermilcoff.newsapi.controller;
 import com.waltermilcoff.newsapi.domain.Author;
 import com.waltermilcoff.newsapi.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuthorController {
 
-    @Autowired
+
     private final AuthorRepository authorRepository;
 
     @Autowired
@@ -58,5 +60,14 @@ public class AuthorController {
     public Author createAuthor(@RequestBody Author author) {
         return authorRepository.save(author);
     }
+
+    @RequestMapping(value = "/author/{id}", method = RequestMethod.GET)
+    public Author getAuthorPorId(@PathVariable("id") Long id) {
+        return authorRepository.findById(id).get();
+    }
+
+    @RequestMapping(value = "/author", method = RequestMethod.GET)
+    public ResponseEntity<?> getAll() {
+        return new ResponseEntity(authorRepository.findAll(), HttpStatus.OK);}
 
 }
