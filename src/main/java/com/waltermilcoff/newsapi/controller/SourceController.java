@@ -54,4 +54,11 @@ public class SourceController {
         return new ResponseEntity(sourceRepository.findAll(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/source/{id}", method = RequestMethod.PUT)
+    public Source modificarSource(@PathVariable("id") Long id, @RequestBody Source source) {
+        Source sourceExistente = sourceRepository.findById(id).get();
+        sourceExistente.setName(source.getName());
+        sourceExistente.setCratedAt(source.getCratedAt());
+        return sourceRepository.save(sourceExistente);
+    }
 }

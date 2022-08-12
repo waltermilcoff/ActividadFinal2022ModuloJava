@@ -27,21 +27,6 @@ public class AuthorController {
     }
  -------------- Estraxto de RECETAS INFORMATORIO--------
 
-    @RequestMapping(value = "/receta", method = RequestMethod.POST)
-    public Receta createProducto(@RequestBody Receta receta) {
-        return recetaRepository.save(receta);
-    }
-
-    @RequestMapping(value = "/receta/{id}", method = RequestMethod.GET)
-    public Receta getRecetaPorId(@PathVariable("id") Long id) {
-        return recetaRepository.findById(id).get();
-    }
-
-    @RequestMapping(value = "/receta", method = RequestMethod.GET)
-    public ResponseEntity<?> getAll() {
-        return new ResponseEntity(recetaRepository.findAll(), HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/receta/{id}", method = RequestMethod.PUT)
     public Receta modificarProducto(@PathVariable("id") Long id, @RequestBody Receta receta) {
         Receta recetaExistente = recetaRepository.findById(id).get();
@@ -69,5 +54,14 @@ public class AuthorController {
     @RequestMapping(value = "/author", method = RequestMethod.GET)
     public ResponseEntity<?> getAll() {
         return new ResponseEntity(authorRepository.findAll(), HttpStatus.OK);}
+
+    @RequestMapping(value = "/author/{id}", method = RequestMethod.PUT)
+    public Author modificarAutor(@PathVariable("id") Long id, @RequestBody Author author) {
+        Author autorExistente = authorRepository.findById(id).get();
+        autorExistente.setFirstname(author.getFirstname());
+        autorExistente.setLastname(author.getLastname());
+        autorExistente.setCreatedAt(author.getCreatedAt());
+        return authorRepository.save(autorExistente);
+    }
 
 }

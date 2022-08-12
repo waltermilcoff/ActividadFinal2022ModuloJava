@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String title;
     private String description;
     private String url;
@@ -27,8 +27,9 @@ public class Article {
     public Article() {
     }
 
-    public Article(String title, String description, String url, String urlToImage,
-                   LocalDate publishedAt, String content, Source source, Author author) {
+    public Article(String title, String description, String url,
+                   String urlToImage, LocalDate publishedAt, String content,
+                   Source source, Author author) {
         this.title = title;
         this.description = description;
         this.url = url;
@@ -39,11 +40,24 @@ public class Article {
         this.author = author;
     }
 
-    public Integer getId() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(id, article.id) && Objects.equals(title, article.title) && Objects.equals(description, article.description) && Objects.equals(url, article.url) && Objects.equals(urlToImage, article.urlToImage) && Objects.equals(publishedAt, article.publishedAt) && Objects.equals(content, article.content) && Objects.equals(source, article.source) && Objects.equals(author, article.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, url, urlToImage, publishedAt, content, source, author);
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -109,19 +123,6 @@ public class Article {
 
     public void setAuthor(Author author) {
         this.author = author;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Article article = (Article) o;
-        return Objects.equals(id, article.id) && Objects.equals(title, article.title) && Objects.equals(description, article.description) && Objects.equals(url, article.url) && Objects.equals(urlToImage, article.urlToImage) && Objects.equals(publishedAt, article.publishedAt) && Objects.equals(content, article.content) && Objects.equals(source, article.source) && Objects.equals(author, article.author);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, description, url, urlToImage, publishedAt, content, source, author);
     }
 
     @Override
