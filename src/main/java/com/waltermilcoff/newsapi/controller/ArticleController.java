@@ -1,7 +1,5 @@
 package com.waltermilcoff.newsapi.controller;
-
 import com.waltermilcoff.newsapi.domain.Article;
-import com.waltermilcoff.newsapi.domain.Source;
 import com.waltermilcoff.newsapi.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

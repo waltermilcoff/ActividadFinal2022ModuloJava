@@ -1,5 +1,4 @@
 package com.waltermilcoff.newsapi.controller;
-
 import com.waltermilcoff.newsapi.domain.Source;
 import com.waltermilcoff.newsapi.repository.SourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,12 @@ public class SourceController {
 
     @RequestMapping(value = "/source", method = RequestMethod.POST)
     public Source createSource(@RequestBody Source source) {
+        source.setCode(generateCode(source));
         return sourceRepository.save(source);
+    }
+    private String generateCode(Source source){
+        return source.getName().toLowerCase().replaceAll("[ ]", "-");
+
     }
 
     @RequestMapping(value = "/source/{id}", method = RequestMethod.GET)

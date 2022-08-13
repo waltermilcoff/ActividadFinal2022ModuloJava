@@ -1,5 +1,4 @@
 package com.waltermilcoff.newsapi.controller;
-
 import com.waltermilcoff.newsapi.domain.Author;
 import com.waltermilcoff.newsapi.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
