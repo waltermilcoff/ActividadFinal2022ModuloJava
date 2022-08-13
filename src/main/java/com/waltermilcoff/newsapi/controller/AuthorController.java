@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthorController {
 
 
+    @Autowired
     private final AuthorRepository authorRepository;
 
     @Autowired
@@ -20,31 +21,26 @@ public class AuthorController {
 
 
     /*
+    Forma Utilizada en el video de crear la API de Movie Fest
+
     @PostMapping("/author")
     public Author createAuthor(@RequestBody Author author) {
         return authorRepository.save(author);
-
-    }
- -------------- Estraxto de RECETAS INFORMATORIO--------
-
-    @RequestMapping(value = "/receta/{id}", method = RequestMethod.PUT)
-    public Receta modificarProducto(@PathVariable("id") Long id, @RequestBody Receta receta) {
-        Receta recetaExistente = recetaRepository.findById(id).get();
-        recetaExistente.setDescription(receta.getDescription());
-        return recetaRepository.save(recetaExistente);
     }
 
-    @RequestMapping(value = "/receta/{id}", method = RequestMethod.DELETE)
-    public void borrarPorId(@PathVariable("id") Long id) {
-        recetaRepository.deleteById(id);
-    }
+     */
 
-    */
 
     @RequestMapping(value = "/author", method = RequestMethod.POST)
     public Author createAuthor(@RequestBody Author author) {
+        author.setFullname(generateFullname(author));
         return authorRepository.save(author);
     }
+
+    private String generateFullname(Author author){
+        return  author.getFirstname().concat(" ").concat(author.getLastname());
+    }
+
 
     @RequestMapping(value = "/author/{id}", method = RequestMethod.GET)
     public Author getAuthorPorId(@PathVariable("id") Long id) {

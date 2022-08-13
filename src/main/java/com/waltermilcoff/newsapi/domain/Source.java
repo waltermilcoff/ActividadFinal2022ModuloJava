@@ -15,17 +15,23 @@ public class Source {
     private String name;
     private String code;
     private LocalDate cratedAt;
+    @OneToMany(mappedBy = "source", cascade = {CascadeType.DETACH,CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Article> article = new ArrayList<>();
 
-    @OneToMany(mappedBy = "source", cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Article> articles = new ArrayList<>();
+    /* modifique cascade y agregué otros atributos
+    formula original del video APIMOVIE: CascadeType.ALL, orphanRemoval = false
+    * AGREGADO: {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
+    * */
 
     public Source() {
     }
 
-    public Source(String name, String code, LocalDate cratedAt) {
+    public Source(String name, String code, LocalDate cratedAt, List<Article> article) {
         this.name = name;
         this.code = code;
         this.cratedAt = cratedAt;
+        this.article = article;
     }
 
     public Long getId() {
@@ -60,17 +66,25 @@ public class Source {
         this.cratedAt = cratedAt;
     }
 
+    public List<Article> getArticle() {
+        return article;
+    }
+
+    public void setArticle(List<Article> article) {
+        this.article = article;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Source source = (Source) o;
-        return Objects.equals(id, source.id) && Objects.equals(name, source.name) && Objects.equals(code, source.code) && Objects.equals(cratedAt, source.cratedAt);
+        return Objects.equals(id, source.id) && Objects.equals(name, source.name) && Objects.equals(code, source.code) && Objects.equals(cratedAt, source.cratedAt) && Objects.equals(article, source.article);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, code, cratedAt);
+        return Objects.hash(id, name, code, cratedAt, article);
     }
 
     @Override
@@ -80,6 +94,7 @@ public class Source {
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", cratedAt=" + cratedAt +
+                ", article=" + article +
                 '}';
     }
 }

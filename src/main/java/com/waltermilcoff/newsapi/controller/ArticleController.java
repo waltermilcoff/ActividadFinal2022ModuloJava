@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ArticleController {
 
-
+    @Autowired
     private final ArticleRepository articleRepository;
 
 
@@ -20,27 +20,17 @@ public class ArticleController {
         this.articleRepository = articleRepository;
     }
 
-  /*
+/*
+
+    Forma Utilizada en el video de crear la API de Movie Fest
+
     @PostMapping("/article")
     public Article createArticle(@RequestBody Article article){
         return articleRepository.save(article);
-
     }
+*/
 
-      -------------- Estraxto de RECETAS INFORMATORIO--------
-
-    @RequestMapping(value = "/receta/{id}", method = RequestMethod.PUT)
-    public Receta modificarProducto(@PathVariable("id") Long id, @RequestBody Receta receta) {
-        Receta recetaExistente = recetaRepository.findById(id).get();
-        recetaExistente.setDescription(receta.getDescription());
-        return recetaRepository.save(recetaExistente);
-    }
-
-
-
-    */
-
-   @RequestMapping(value = "/article", method = RequestMethod.POST)
+    @RequestMapping(value = "/article", method = RequestMethod.POST)
     public Article createArticle(@RequestBody Article article){
 
        return articleRepository.save(article);
@@ -66,6 +56,8 @@ public class ArticleController {
         articuloExistente.setUrlToImage(article.getUrlToImage());
         articuloExistente.setPublishedAt(article.getPublishedAt());
         articuloExistente.setContent(article.getContent());
+        articuloExistente.setSource(article.getSource());
+        articuloExistente.setAuthor(article.getAuthor());
         return articleRepository.save(articuloExistente);
     }
 
