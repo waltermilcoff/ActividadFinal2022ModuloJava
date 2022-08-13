@@ -36,10 +36,7 @@ public class ArticleController {
         return recetaRepository.save(recetaExistente);
     }
 
-    @RequestMapping(value = "/receta/{id}", method = RequestMethod.DELETE)
-    public void borrarPorId(@PathVariable("id") Long id) {
-        recetaRepository.deleteById(id);
-    }
+
 
     */
 
@@ -71,4 +68,10 @@ public class ArticleController {
         articuloExistente.setContent(article.getContent());
         return articleRepository.save(articuloExistente);
     }
+
+    @RequestMapping(value = "/article/{id}", method = RequestMethod.DELETE)
+    public void borrarArticuloPorId(@PathVariable("id") Long id) {
+        articleRepository.deleteById(id);
+    }
+
 }

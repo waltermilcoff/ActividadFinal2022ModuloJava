@@ -23,20 +23,6 @@ public class SourceController {
     public Source createSource(@RequestBody Source source) {
         return sourceRepository.save(source);
     }
-    -------------- Estraxto de RECETAS INFORMATORIO--------
-
-       @RequestMapping(value = "/receta/{id}", method = RequestMethod.PUT)
-    public Receta modificarProducto(@PathVariable("id") Long id, @RequestBody Receta receta) {
-        Receta recetaExistente = recetaRepository.findById(id).get();
-        recetaExistente.setDescription(receta.getDescription());
-        return recetaRepository.save(recetaExistente);
-    }
-
-    @RequestMapping(value = "/receta/{id}", method = RequestMethod.DELETE)
-    public void borrarPorId(@PathVariable("id") Long id) {
-        recetaRepository.deleteById(id);
-    }
-
     */
 
     @RequestMapping(value = "/source", method = RequestMethod.POST)
@@ -61,4 +47,10 @@ public class SourceController {
         sourceExistente.setCratedAt(source.getCratedAt());
         return sourceRepository.save(sourceExistente);
     }
+
+    @RequestMapping(value = "/source/{id}", method = RequestMethod.DELETE)
+    public void borrarSourcePorId(@PathVariable("id") Long id) {
+        sourceRepository.deleteById(id);
+    }
+
 }

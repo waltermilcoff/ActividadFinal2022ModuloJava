@@ -64,4 +64,9 @@ public class AuthorController {
         return authorRepository.save(autorExistente);
     }
 
+    @RequestMapping(value = "/author/{id}", method = RequestMethod.DELETE)
+    public void borrarAutorPorId(@PathVariable("id") Long id) {
+        authorRepository.deleteById(id);
+    }
+
 }
