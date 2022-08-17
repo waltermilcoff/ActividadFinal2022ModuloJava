@@ -47,9 +47,6 @@ public class SourceController {
         return sourceRepository.save(sourceExistente);
     }
 
-    /*
-    CONSULTA - OBTENER TODOS LOS SOURCES QUE CONTENGA UNA PALABRA DADA EN EL NOMBRE
-     */
     @RequestMapping(value = "/source/name/{palabra}", method = RequestMethod.GET)
     public ResponseEntity<?> buscarPalabrasName(@PathVariable("palabra") String palabra){
         List<Source> source = sourceRepository.findByNameContaining(palabra);

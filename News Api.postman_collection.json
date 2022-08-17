@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Titulo de Prueba\",\r\n    \"description\": \"El desarrollo web desde mi perspectiva\",\r\n    \"url\": \"www.informatorio-cenit/meEstaGustadoJava/articulo\",\r\n    \"urlToImage\": \"www.informatorio-cenit/meEstaGustadoJava/articulo/noexiste/articulo/estaeslarutadeunaimagen-angau\",\r\n    \"publishedAt\": \"2020-04-10\",\r\n    \"content\": \"Santiago Agustín todos los días le visita su abuelo el señor Baltazar Núñez quién le lleva alimentos, y este familiar se comprometió conforme le ha manifestado a los oficiales, a recibirlo en su domicilio sito en calle  Mitre 1620 ciudad, para que el mismo tenga techo y un lugar donde vivir. Por lo tanto, no hay motivos para continuar con la prisión preventiva. Por eso solicitó la libertad del señor Pereira y que él mismo fijaría domicilio en calle Mitre 1620, Resistencia, que pertenece a su abuelo el señor Baltazar Núñez. Es todo su señoría.\",\r\n    \"author\": {\"id\": 3,\r\n    \"firstname\": \"David\",\r\n    \"lastname\": \"Quammen\",\r\n    \"fullname\": \"David Quammen\",\r\n    \"createdAt\": \"1975-06-05\"\r\n},\r\n    \"source\": {\"id\": 5,\r\n    \"name\": \"The New York Time\",\r\n    \"code\": \"the-new-york-time\",\r\n    \"cratedAt\": \"1970-08-11\"}\r\n}",
+							"raw": "{\"title\": \"El STJ del Chaco fijó criterio de interpretación sobre la edad jubilatoria de los jueces\",\r\n    \"description\": \"El máximo tribunal resolvió que magistrados y funcionarios de los ministerios públicos deben cumplir con la Constitución Provincial y notificar a la Dirección de Personal y al Consejo de la Magistratura del Chaco seis meses antes de cumplir los 70 años.\",\r\n    \"url\": \"https://litigio.com.ar\",\r\n    \"urlToImage\": \"https://litigio.com.ar/Tribunal-de-Justicia-del-Chaco-700x525.png\",\r\n    \"publishedAt\": \"2021-05-01\",\r\n    \"content\": \"El intento de la jueza de la Cámara de Apelaciones en lo Criminal y Correccional, Mercedes Riera, de permanecer en su cargo sin rendir un nuevo concurso, una vez superados los 70 años, desencadenó una serie de situaciones que pusieron al desnudo los fuertes contrapuntos en el seno del Poder Judicial del Chaco. Eso quedó plasmado en la resolución dictada este martes 16 de agosto por la mayoría del Superior Tribunal de Justicia del Chaco, en respuesta a un oficio del Consejo de la Magistratura. En el mismo se solicitaba que, dada la situación suscitada por el caso Riera, el máximo tribunal determine un criterio de interpretación del artículo 154 de la Constitución Provincial que exige un nuevo nombramiento (ergo, un nuevo concurso de antecedentes y oposición) a los magistrados que decidan permanecer en su cargo una vez alcanzado el límite establecido por el texto constitucional.\",\r\n    \"source\": {\r\n    \"id\": 12,\r\n    \"name\": \"LITIGIO Periodismo Judicial\",\r\n    \"code\": \"litigio-periodismo-judicial\",\r\n    \"cratedAt\": \"2021-06-23\"\r\n},\r\n    \"author\": {\r\n    \"id\": 11,\r\n    \"firstname\": \"Bruno\",\r\n    \"lastname\": \"Martinez\",\r\n    \"fullname\": \"Bruno Martinez\",\r\n    \"createdAt\": \"1989-07-16\"\r\n}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -137,7 +137,25 @@
 					"name": "Obtener Articulo por palabra publicada",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/article/palabras/los",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"article",
+								"palabras",
+								"los"
+							]
+						}
 					},
 					"response": []
 				}

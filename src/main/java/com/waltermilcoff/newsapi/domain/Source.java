@@ -22,11 +22,10 @@ public class Source {
     public Source() {
     }
 
-    public Source(String name, String code, LocalDate cratedAt, List<Article> articles) {
+    public Source(String name, String code, LocalDate cratedAt) {
         this.name = name;
         this.code = code;
         this.cratedAt = cratedAt;
-        this.articles = articles;
     }
 
     public Long getId() {
@@ -61,25 +60,17 @@ public class Source {
         this.cratedAt = cratedAt;
     }
 
-    public List<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Source source = (Source) o;
-        return Objects.equals(id, source.id) && Objects.equals(name, source.name) && Objects.equals(code, source.code) && Objects.equals(cratedAt, source.cratedAt) && Objects.equals(articles, source.articles);
+        return Objects.equals(id, source.id) && Objects.equals(name, source.name) && Objects.equals(code, source.code) && Objects.equals(cratedAt, source.cratedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, code, cratedAt, articles);
+        return Objects.hash(id, name, code, cratedAt);
     }
 
     @Override
@@ -89,7 +80,6 @@ public class Source {
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", cratedAt=" + cratedAt +
-                ", articles=" + articles +
                 '}';
     }
 }
