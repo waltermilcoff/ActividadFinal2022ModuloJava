@@ -48,10 +48,10 @@ public class SourceController {
     }
 
     /*
-    CONSULTA - OBTENER TODOS LOS SOURCES QUE CONTENGA UNA PALABRA DADA
+    CONSULTA - OBTENER TODOS LOS SOURCES QUE CONTENGA UNA PALABRA DADA EN EL NOMBRE
      */
     @RequestMapping(value = "/source/name/{palabra}", method = RequestMethod.GET)
-    public ResponseEntity<?> buscarPalabrasName(@PathVariable("palabra") String palabra) {
+    public ResponseEntity<?> buscarPalabrasName(@PathVariable("palabra") String palabra){
         List<Source> source = sourceRepository.findByNameContaining(palabra);
         return new ResponseEntity(sourceRepository.findByNameContaining(palabra), HttpStatus.OK);}
 

@@ -2,7 +2,6 @@ package com.waltermilcoff.newsapi.controller;
 import com.waltermilcoff.newsapi.domain.Author;
 import com.waltermilcoff.newsapi.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -54,8 +53,9 @@ public class AuthorController {
 
     @RequestMapping(value = "/author/fullname/{palabras}", method = RequestMethod.GET)
     public ResponseEntity<?> buscarPalabras(@PathVariable("palabras") String palabras){
-        List<Author> author = authorRepository.findByFullnameContaining(palabras);
-        return new ResponseEntity(authorRepository.findByFullnameContaining(palabras), HttpStatus.OK);}
+        List<Author> authorPalabras = authorRepository.findByFullnameContaining(palabras);
+        return new ResponseEntity<>(authorPalabras, HttpStatus.OK);
+    }
 
 
     @RequestMapping(value = "/author/{id}", method = RequestMethod.DELETE)
@@ -65,6 +65,22 @@ public class AuthorController {
 
     /*
     CONSULTA (OBTENER TODOS LOS AUTORES QUE FUERON CREADOS LUEGO DE UNA FECHA DADA):
+
+    Modelo en GitHub: spring-tutorials/myblog/src/main/java/com/informatorio/myblog/controller/UserController.java
+
+    //GET Todos los user creados despues de cierta fecha
+  @GetMapping // ~ /api/v1/post
+  public ResponseEntity<?> buscarUsuariosCreadosDespuesDeFecha(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    List<User> users = userRepository.findByCreationDateIsAfter(date);
+    System.out.println("POR FIN ENTRO EN EL CONTROLLER!!!!!!");
+    System.out.println(users.get(0).getNombre());
+    return new ResponseEntity<>(users, HttpStatus.OK);
+  }
     */
+    @RequestMapping(value = "/author/fecha/{date}", method = RequestMethod.GET)
+    public ResponseEntity<?> buscarAutoresCreadosDespuesDeFecha(@PathVariable("date") LocalDate date) {
+        List<Author> authorListDate = authorRepository.findByCreatedAtIsAfter(date);
+        return new ResponseEntity<>(authorListDate, HttpStatus.OK);
+    }
 
 }

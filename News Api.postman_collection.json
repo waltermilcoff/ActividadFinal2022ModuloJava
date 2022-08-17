@@ -132,6 +132,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Obtener Articulo por palabra publicada",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -272,6 +280,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Obtener Fuente por una palabra que contenga el Name",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/source/name/diario",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"source",
+								"name",
+								"diario"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -403,6 +437,65 @@
 							"path": [
 								"author",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Autores que contengan un string en el FULLNAME",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/author/fullname/flo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"author",
+								"fullname",
+								"flo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Autor despues de una Fecha",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/author/date/*",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"author",
+								"date",
+								"*"
 							]
 						}
 					},
