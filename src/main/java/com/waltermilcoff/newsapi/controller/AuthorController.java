@@ -52,9 +52,11 @@ public class AuthorController {
         return authorRepository.save(autorExistente);
     }
 
-   /*
-   CONSULTA (OBTENER TODOS LOS USUARIOS QUE CONTENGAN UN STRING BUSCADO EN EL FULLNAME)
-    */
+    @RequestMapping(value = "/author/fullname/{palabras}", method = RequestMethod.GET)
+    public ResponseEntity<?> buscarPalabras(@PathVariable("palabras") String palabras){
+        List<Author> author = authorRepository.findByFullnameContaining(palabras);
+        return new ResponseEntity(authorRepository.findByFullnameContaining(palabras), HttpStatus.OK);}
+
 
     @RequestMapping(value = "/author/{id}", method = RequestMethod.DELETE)
     public void borrarAutorPorId(@PathVariable("id") Long id) {
