@@ -2,6 +2,7 @@ package com.waltermilcoff.newsapi.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,22 +18,24 @@ public class Author {
     private String fullname;
     private LocalDate createdAt;
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = false)
-    private List<Article> article = new ArrayList<>();
+    private List<Article> articles = new ArrayList<>();
 
-    /* modifique cascade y agregué otros atributos
-    formula original del video APIMOVIE: CascadeType.ALL, orphanRemoval = false
-    * AGREGADO: {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
-    * */
-
-    public Author() {
+    //para el Test Unitario:
+    private boolean esCandidatoBodasDePlataLiteraria(){
+        if(createdAt != null){
+            return Period.between(createdAt, LocalDate.now()).getYears() > 25;
+        }
+        return false;
     }
 
-    public Author(String firstname, String lastname, String fullname, LocalDate createdAt, List<Article> article) {
+   public Author() {
+    }
+
+    public Author(String firstname, String lastname, String fullname, LocalDate createdAt) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.fullname = fullname;
         this.createdAt = createdAt;
-        this.article = article;
     }
 
     public Long getId() {
@@ -75,25 +78,17 @@ public class Author {
         this.createdAt = createdAt;
     }
 
-    public List<Article> getArticle() {
-        return article;
-    }
-
-    public void setArticle(List<Article> article) {
-        this.article = article;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Author author = (Author) o;
-        return Objects.equals(id, author.id) && Objects.equals(firstname, author.firstname) && Objects.equals(lastname, author.lastname) && Objects.equals(fullname, author.fullname) && Objects.equals(createdAt, author.createdAt) && Objects.equals(article, author.article);
+        return Objects.equals(id, author.id) && Objects.equals(firstname, author.firstname) && Objects.equals(lastname, author.lastname) && Objects.equals(fullname, author.fullname) && Objects.equals(createdAt, author.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, fullname, createdAt, article);
+        return Objects.hash(id, firstname, lastname, fullname, createdAt);
     }
 
     @Override
@@ -104,7 +99,6 @@ public class Author {
                 ", lastname='" + lastname + '\'' +
                 ", fullname='" + fullname + '\'' +
                 ", createdAt=" + createdAt +
-                ", article=" + article +
                 '}';
     }
 }

@@ -9,20 +9,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SourceController {
 
-
     private final SourceRepository sourceRepository;
 
     @Autowired
     public SourceController(SourceRepository sourceRepository) {
         this.sourceRepository = sourceRepository;
     }
-
-    /*
-    @PostMapping("/source")
-    public Source createSource(@RequestBody Source source) {
-        return sourceRepository.save(source);
-    }
-    */
 
     @RequestMapping(value = "/source", method = RequestMethod.POST)
     public Source createSource(@RequestBody Source source) {
@@ -51,6 +43,11 @@ public class SourceController {
         sourceExistente.setCratedAt(source.getCratedAt());
         return sourceRepository.save(sourceExistente);
     }
+
+    /*
+    CONSULTA - OBTENER TODOS LOS SOURCES QUE CONTENGA UNA PALABRA DADA
+
+     */
 
     @RequestMapping(value = "/source/{id}", method = RequestMethod.DELETE)
     public void borrarSourcePorId(@PathVariable("id") Long id) {

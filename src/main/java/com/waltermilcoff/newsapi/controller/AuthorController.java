@@ -2,13 +2,18 @@ package com.waltermilcoff.newsapi.controller;
 import com.waltermilcoff.newsapi.domain.Author;
 import com.waltermilcoff.newsapi.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-public class AuthorController {
+import java.time.LocalDate;
+import java.util.List;
 
+@RestController
+@Validated
+public class AuthorController {
 
     @Autowired
     private final AuthorRepository authorRepository;
@@ -17,18 +22,6 @@ public class AuthorController {
     public AuthorController(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
-
-
-    /*
-    Forma Utilizada en el video de crear la API de Movie Fest
-
-    @PostMapping("/author")
-    public Author createAuthor(@RequestBody Author author) {
-        return authorRepository.save(author);
-    }
-
-     */
-
 
     @RequestMapping(value = "/author", method = RequestMethod.POST)
     public Author createAuthor(@RequestBody Author author) {
@@ -59,9 +52,17 @@ public class AuthorController {
         return authorRepository.save(autorExistente);
     }
 
+   /*
+   CONSULTA (OBTENER TODOS LOS USUARIOS QUE CONTENGAN UN STRING BUSCADO EN EL FULLNAME)
+    */
+
     @RequestMapping(value = "/author/{id}", method = RequestMethod.DELETE)
     public void borrarAutorPorId(@PathVariable("id") Long id) {
         authorRepository.deleteById(id);
     }
+
+    /*
+    CONSULTA (OBTENER TODOS LOS AUTORES QUE FUERON CREADOS LUEGO DE UNA FECHA DADA):
+    */
 
 }

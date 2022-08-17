@@ -12,28 +12,16 @@ public class ArticleController {
     @Autowired
     private final ArticleRepository articleRepository;
 
-
     @Autowired
     public ArticleController(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
     }
-
-/*
-
-    Forma Utilizada en el video de crear la API de Movie Fest
-
-    @PostMapping("/article")
-    public Article createArticle(@RequestBody Article article){
-        return articleRepository.save(article);
-    }
-*/
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public Article createArticle(@RequestBody Article article){
 
        return articleRepository.save(article);
     }
-
 
     @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
     public Article getArticlePorId(@PathVariable("id") Long id) {
@@ -63,5 +51,13 @@ public class ArticleController {
     public void borrarArticuloPorId(@PathVariable("id") Long id) {
         articleRepository.deleteById(id);
     }
+
+    /*
+    CONSULTA - OBTENER TODOS ARTICULOS (SEGUN UNA PALABRA BUSCADA).
+    La palabra a buscar debe ser mayor a 3 caracteres
+    Solo los articulos publicados se deben retornar
+    LA QUERY DEBE BUSCAR SOBRE LOS CAMPOS (title, description)
+    Opcional: La query anterior debe abarcar tambien content y el fullname del author
+     */
 
 }

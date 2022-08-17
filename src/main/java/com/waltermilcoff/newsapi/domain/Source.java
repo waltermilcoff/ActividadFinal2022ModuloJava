@@ -15,23 +15,18 @@ public class Source {
     private String name;
     private String code;
     private LocalDate cratedAt;
-    @OneToMany(mappedBy = "source", cascade = {CascadeType.DETACH,CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Article> article = new ArrayList<>();
+    @OneToMany(mappedBy = "source", cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Article> articles = new ArrayList<>();
 
-    /* modifique cascade y agregué otros atributos
-    formula original del video APIMOVIE: CascadeType.ALL, orphanRemoval = false
-    * AGREGADO: {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
-    * */
 
     public Source() {
     }
 
-    public Source(String name, String code, LocalDate cratedAt, List<Article> article) {
+    public Source(String name, String code, LocalDate cratedAt, List<Article> articles) {
         this.name = name;
         this.code = code;
         this.cratedAt = cratedAt;
-        this.article = article;
+        this.articles = articles;
     }
 
     public Long getId() {
@@ -66,12 +61,12 @@ public class Source {
         this.cratedAt = cratedAt;
     }
 
-    public List<Article> getArticle() {
-        return article;
+    public List<Article> getArticles() {
+        return articles;
     }
 
-    public void setArticle(List<Article> article) {
-        this.article = article;
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 
     @Override
@@ -79,12 +74,12 @@ public class Source {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Source source = (Source) o;
-        return Objects.equals(id, source.id) && Objects.equals(name, source.name) && Objects.equals(code, source.code) && Objects.equals(cratedAt, source.cratedAt) && Objects.equals(article, source.article);
+        return Objects.equals(id, source.id) && Objects.equals(name, source.name) && Objects.equals(code, source.code) && Objects.equals(cratedAt, source.cratedAt) && Objects.equals(articles, source.articles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, code, cratedAt, article);
+        return Objects.hash(id, name, code, cratedAt, articles);
     }
 
     @Override
@@ -94,7 +89,7 @@ public class Source {
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", cratedAt=" + cratedAt +
-                ", article=" + article +
+                ", articles=" + articles +
                 '}';
     }
 }

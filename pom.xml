@@ -12,10 +12,14 @@
 	<artifactId>newsapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>newsapi</name>
+
+	<packaging>jar</packaging>
+
 	<description>Trabajo Final Informatorio 2022 - JAVA</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -36,7 +40,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.8.2</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
+
 
 	<build>
 		<plugins>
