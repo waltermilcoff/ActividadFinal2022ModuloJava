@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface SourceRepository extends JpaRepository<Source, Long> {
 
-    List<Source> findByNameContaining(String word);
+    List<Source> findByNameContaining(String palabra);
 
 }

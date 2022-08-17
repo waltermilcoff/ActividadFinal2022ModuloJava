@@ -1,10 +1,13 @@
 package com.waltermilcoff.newsapi.controller;
+import com.waltermilcoff.newsapi.domain.Author;
 import com.waltermilcoff.newsapi.domain.Source;
 import com.waltermilcoff.newsapi.repository.SourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class SourceController {
@@ -46,8 +49,11 @@ public class SourceController {
 
     /*
     CONSULTA - OBTENER TODOS LOS SOURCES QUE CONTENGA UNA PALABRA DADA
-
      */
+    @RequestMapping(value = "/source/name/{palabra}", method = RequestMethod.GET)
+    public ResponseEntity<?> buscarPalabrasName(@PathVariable("palabra") String palabra) {
+        List<Source> source = sourceRepository.findByNameContaining(palabra);
+        return new ResponseEntity(sourceRepository.findByNameContaining(palabra), HttpStatus.OK);}
 
     @RequestMapping(value = "/source/{id}", method = RequestMethod.DELETE)
     public void borrarSourcePorId(@PathVariable("id") Long id) {

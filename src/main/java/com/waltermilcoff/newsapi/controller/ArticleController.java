@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ArticleController {
 
@@ -59,5 +61,9 @@ public class ArticleController {
     LA QUERY DEBE BUSCAR SOBRE LOS CAMPOS (title, description)
     Opcional: La query anterior debe abarcar tambien content y el fullname del author
      */
+    @RequestMapping(value = "/article/palabras/{palabras}", method = RequestMethod.GET)
+    public ResponseEntity<?> buscarPalabras(@PathVariable("palabras") String description){
+        List<Article> articuloPorPalabras = articleRepository.findByDescriptionContaining(description);
+        return new ResponseEntity(articleRepository.findByDescriptionContaining(description), HttpStatus.OK);}
 
 }
