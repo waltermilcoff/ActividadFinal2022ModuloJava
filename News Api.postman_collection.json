@@ -37,44 +37,6 @@
 					"response": []
 				},
 				{
-					"name": "Obtener todos los Articulos",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/article",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"article"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener un Articulo por Id",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
 					"name": "Actualizar los datos de un Articulo por Id",
 					"request": {
 						"method": "PUT",
@@ -87,7 +49,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\r\n    \"id\": 27,\r\n    \"title\": \"Probando Modificaciones4\",\r\n    \"description\": \"voy y vengooooooo con el codigoooooooo Llore llore llore .\",\r\n    \"url\": \"https://litigio.com.ar/wp-content/uploads/2022/04/Lubary-y-Volman-700x525.jpg\",\r\n    \"urlToImage\": \"https://litigio.com.ar/wp-content/uploads/2022/04/Lubary-y-Volman-700x525.jpg\",\r\n    \"publishedAt\": \"2022-08-10\",\r\n    \"content\": \"La Sala Segunda en lo Criminal y Correccional del Superior Tribunal de Justicia del Chaco (STJCh) deberá analizar si desarchiva la denuncia penal y ordena que se tome declaración de imputados a los jueces Juan Pablo Lubary y Cynthia Lotero. Fue luego de que el juez de Transición y Garantías Nº 4 de Resistencia, Juan Carlos Codina, hiciera lugar al recurso de casación de los abogados de Natalia Vallejos contra la resolución del mismo magistrado que decidió archivar la causa en la que sus pares fueron denunciados por presunto abuso de autoridad, prevaricato e impedimento y obstrucción de contacto de menores con su madre no conviviente, en contexto de violencia de género. Vallejos consideró que ambos magistrados tuvieron intervención para facilitar que su expareja.\",\r\n    \"source\": {\r\n        \"id\": 12,\r\n        \"name\": \"LITIGIO Periodismo Judicial\",\r\n        \"code\": \"litigio-periodismo-judicial\",\r\n        \"cratedAt\": \"2021-06-23\"\r\n    },\r\n    \"author\": {\r\n        \"id\": 11,\r\n        \"firstname\": \"Bruno\",\r\n        \"lastname\": \"Martinez\",\r\n        \"fullname\": \"Bruno Martinez\",\r\n        \"createdAt\": \"1989-07-16\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -95,14 +57,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/article/",
+							"raw": "localhost:8080/article/27",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"article",
-								""
+								"27"
 							]
 						}
 					},
@@ -134,7 +96,7 @@
 					"response": []
 				},
 				{
-					"name": "Obtener Articulo por palabra publicada",
+					"name": "Obtener Articulo x PALABRA en Descripción",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -145,7 +107,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/article/palabras/los",
+							"raw": "localhost:8080/article/palabras/Dawn",
 							"host": [
 								"localhost"
 							],
@@ -153,7 +115,56 @@
 							"path": [
 								"article",
 								"palabras",
-								"los"
+								"Dawn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Articulos - PAGINACION",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/article/paginado",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"article",
+								"paginado"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Articulos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/article",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"article"
 							]
 						}
 					},
@@ -227,14 +238,14 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/source/1",
+							"raw": "localhost:8080/source/12",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"source",
-								"1"
+								"12"
 							]
 						}
 					},
@@ -253,7 +264,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\r\n        \"name\": \"Resistencia WEB PORTAL 2\",\r\n        \"cratedAt\": \"2010-12-15\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -261,14 +272,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/source/",
+							"raw": "localhost:8080/source/11",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"source",
-								""
+								"11"
 							]
 						}
 					},
@@ -286,14 +297,14 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/source/8",
+							"raw": "localhost:8080/source/15",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"source",
-								"8"
+								"15"
 							]
 						}
 					},
@@ -326,7 +337,7 @@
 					"response": []
 				},
 				{
-					"name": "Obtener todas las Fuentes con paginado",
+					"name": "Obtener todas las Fuentes con PAGINACION",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -454,7 +465,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 4,\r\n    \"firstname\": \"Pedro\",\r\n    \"lastname\": \"Milcoff\",\r\n    \"fullname\": \"Pedro Milcoff\",\r\n    \"createdAt\": \"2010-10-29\"\r\n}"
+							"raw": "{\r\n    \"id\": 4,\r\n    \"firstname\": \"Pedro Maotez\",\r\n    \"lastname\": \"Milcoff\",\r\n    \"fullname\": \"Pedro Milcoff\",\r\n    \"createdAt\": \"2010-10-29\"\r\n}"
 						},
 						"url": {
 							"raw": "localhost:8080/author/4",
@@ -482,14 +493,14 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/author/",
+							"raw": "localhost:8080/author/13",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"author",
-								""
+								"13"
 							]
 						}
 					},

@@ -31,14 +31,9 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
-    public Article createArticle(@RequestBody Article article){
+    public Article createArticle(@RequestBody Article article) {
 
         return articleRepository.save(article);
-    }
-
-    @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
-    public Article getArticlePorId(@PathVariable("id") Long id) {
-        return articleRepository.findById(id).get();
     }
 
     @RequestMapping(value = "/article", method = RequestMethod.GET)
@@ -52,10 +47,14 @@ public class ArticleController {
 
     @RequestMapping(value = "/article/paginado", method = RequestMethod.GET)
     public ResponseEntity<?> findByAll(@RequestParam(defaultValue = "0") int page,
-                                       @RequestParam(defaultValue = "5") int size){
+                                       @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Article> pageResult = articleRepository.findAll(pageable);
-        return new ResponseEntity<>(pageResult, HttpStatus.OK);}
+        List<ArticleDTO> articleDTOS = pageResult.stream()
+                .map(articleConverter::toDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(articleDTOS, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/article/{id}", method = RequestMethod.PUT)
     public Article modificarArticulo(@PathVariable("id") Long id, @RequestBody Article article) {
@@ -76,16 +75,34 @@ public class ArticleController {
         articleRepository.deleteById(id);
     }
 
+    @RequestMapping(value = "/article/palabras/{description}", method = RequestMethod.GET)
+    public ResponseEntity<?> buscarPalabras(@PathVariable("description") String palabra) {
+        List<Article> articuloPorPalabras = articleRepository.findByDescriptionContaining(palabra);
+        List<ArticleDTO> articleDTOSpalabras = articuloPorPalabras.stream()
+                .map(articleConverter::toDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(articleDTOSpalabras, HttpStatus.OK);
+    }
+}
     /*
     CONSULTA - OBTENER TODOS ARTICULOS (SEGUN UNA PALABRA BUSCADA).
     La palabra a buscar debe ser mayor a 3 caracteres
     Solo los articulos publicados se deben retornar
     LA QUERY DEBE BUSCAR SOBRE LOS CAMPOS (title, description)
     Opcional: La query anterior debe abarcar tambien content y el fullname del author
-     */
-    @RequestMapping(value = "/article/palabras/{palabras}", method = RequestMethod.GET)
-    public ResponseEntity<?> buscarPalabras(@PathVariable("palabras") String description){
-        List<Article> articuloPorPalabras = articleRepository.findByDescriptionContaining(description);
-        return new ResponseEntity(articleRepository.findByDescriptionContaining(description), HttpStatus.OK);}
 
-}
+    @RequestMapping(value = "/article/palabras/{palabra}", method = RequestMethod.GET)
+    public ResponseEntity<?> buscarPalabras(@PathVariable("palabra") String palabra){
+        List<Article> articleList = articleRepository.findByTitleContainingAndDescriptionContaining(palabra, palabra);
+        List<ArticleDTO> articleDTOS = articleList.stream()
+                .map(articleConverter::toDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(articleDTOS, HttpStatus.OK);}
+
+     */
+
+
+
+
+
+

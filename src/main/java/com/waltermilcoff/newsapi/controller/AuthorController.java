@@ -1,7 +1,11 @@
 package com.waltermilcoff.newsapi.controller;
 import com.waltermilcoff.newsapi.domain.Author;
+import com.waltermilcoff.newsapi.domain.Source;
 import com.waltermilcoff.newsapi.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -39,8 +43,12 @@ public class AuthorController {
     }
 
     @RequestMapping(value = "/author", method = RequestMethod.GET)
-    public ResponseEntity<?> getAll() {
-        return new ResponseEntity(authorRepository.findAll(), HttpStatus.OK);}
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Author> pageResult = authorRepository.findAll(pageable);
+        return new ResponseEntity<>(pageResult, HttpStatus.OK);
+       }
 
     @RequestMapping(value = "/author/{id}", method = RequestMethod.PUT)
     public Author modificarAutor(@PathVariable("id") Long id, @RequestBody Author author) {

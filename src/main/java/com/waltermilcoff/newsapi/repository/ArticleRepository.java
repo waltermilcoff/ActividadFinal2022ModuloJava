@@ -9,5 +9,15 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    List<Article> findByDescriptionContaining(String description);
+    List<Article> findByContentContaining(String content);
+
+    List<Article> findByTitleContaining(String title);
+
+    List<Article> findByDescriptionContaining(String palabra);
+
+    List<Article> findByTitleContainingAndDescriptionContaining(String title, String description);
 }
+/*
+ Page<Article> findByTitleContainingAndPublishedOrDescriptionContainingAndPublished(String word,
+ boolean siPubli, String word2, boolean siPubli2, Pageable pageable);
+ */
