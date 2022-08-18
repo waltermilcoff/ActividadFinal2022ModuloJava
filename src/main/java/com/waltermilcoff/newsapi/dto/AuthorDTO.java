@@ -11,20 +11,17 @@ public class AuthorDTO {
     private String lastname;
     private String fullname;
     private LocalDate createdAt;
-    private Set<ArticleDTO> articleDTOS = new HashSet<>();
+
 
     public AuthorDTO() {
     }
 
-    public AuthorDTO(Long id, String firstname,
-                     String lastname, String fullname,
-                     LocalDate createdAt, Set<ArticleDTO> articleDTOS) {
+    public AuthorDTO(Long id, String firstname, String lastname, String fullname, LocalDate createdAt) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.fullname = fullname;
         this.createdAt = createdAt;
-        this.articleDTOS = articleDTOS;
     }
 
     public Long getId() {
@@ -67,25 +64,17 @@ public class AuthorDTO {
         this.createdAt = createdAt;
     }
 
-    public Set<ArticleDTO> getArticleDTOS() {
-        return articleDTOS;
-    }
-
-    public void setArticleDTOS(Set<ArticleDTO> articleDTOS) {
-        this.articleDTOS = articleDTOS;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AuthorDTO authorDTO = (AuthorDTO) o;
-        return Objects.equals(id, authorDTO.id) && Objects.equals(firstname, authorDTO.firstname) && Objects.equals(lastname, authorDTO.lastname) && Objects.equals(fullname, authorDTO.fullname) && Objects.equals(createdAt, authorDTO.createdAt) && Objects.equals(articleDTOS, authorDTO.articleDTOS);
+        return Objects.equals(id, authorDTO.id) && Objects.equals(firstname, authorDTO.firstname) && Objects.equals(lastname, authorDTO.lastname) && Objects.equals(fullname, authorDTO.fullname) && Objects.equals(createdAt, authorDTO.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, fullname, createdAt, articleDTOS);
+        return Objects.hash(id, firstname, lastname, fullname, createdAt);
     }
 
     @Override
@@ -96,7 +85,6 @@ public class AuthorDTO {
                 ", lastname='" + lastname + '\'' +
                 ", fullname='" + fullname + '\'' +
                 ", createdAt=" + createdAt +
-                ", articleDTOS=" + articleDTOS +
                 '}';
     }
 }

@@ -1,6 +1,8 @@
 package com.waltermilcoff.newsapi.controller;
+import com.waltermilcoff.newsapi.converter.AuthorConverter;
 import com.waltermilcoff.newsapi.domain.Author;
 import com.waltermilcoff.newsapi.domain.Source;
+import com.waltermilcoff.newsapi.dto.AuthorDTO;
 import com.waltermilcoff.newsapi.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @RestController
 @Validated
 public class AuthorController {
@@ -22,8 +25,12 @@ public class AuthorController {
     private final AuthorRepository authorRepository;
 
     @Autowired
-    public AuthorController(AuthorRepository authorRepository) {
+    private AuthorConverter authorConverter;
+
+    @Autowired
+    public AuthorController(AuthorRepository authorRepository, AuthorConverter authorConverter) {
         this.authorRepository = authorRepository;
+        this.authorConverter = authorConverter;
     }
 
     @RequestMapping(value = "/author", method = RequestMethod.POST)
@@ -84,11 +91,27 @@ public class AuthorController {
     System.out.println(users.get(0).getNombre());
     return new ResponseEntity<>(users, HttpStatus.OK);
   }
-    */
+
+     */
+
+   //Llevado a la Practica:
+
     @RequestMapping(value = "/author/fecha/{date}", method = RequestMethod.GET)
     public ResponseEntity<?> buscarAutoresCreadosDespuesDeFecha(@PathVariable("date") LocalDate date) {
-        List<Author> authorListDate = authorRepository.findByCreatedAtIsAfter(date);
-        return new ResponseEntity<>(authorListDate, HttpStatus.OK);
+        List<Author> authorListDate = authorRepository.findByCreatedAtAfter(date);
+        return new ResponseEntity<>(authorListDate, HttpStatus.OK);}
+
+  /*
+  Otra Forma que intento y no me funciona es medinate el DTO:
+
+   @RequestMapping(value = "/author/fecha/{date}", method = RequestMethod.GET)
+    public ResponseEntity<?> buscarAutoresCreadosDespuesDeFecha(@PathVariable("date") LocalDate date)  {
+        List<Author> author = authorRepository.findByCreatedAtAfter(date);
+        List<AuthorDTO> authorDTOS = author.stream()
+                .map(authorConverter::toDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(authorDTOS, HttpStatus.OK);
+    */
+
     }
 
-}

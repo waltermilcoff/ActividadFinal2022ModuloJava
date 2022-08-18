@@ -84,20 +84,21 @@ public class ArticleController {
         return new ResponseEntity<>(articleDTOSpalabras, HttpStatus.OK);
     }
 }
-    /*
+/*
     CONSULTA - OBTENER TODOS ARTICULOS (SEGUN UNA PALABRA BUSCADA).
     La palabra a buscar debe ser mayor a 3 caracteres
     Solo los articulos publicados se deben retornar
     LA QUERY DEBE BUSCAR SOBRE LOS CAMPOS (title, description)
     Opcional: La query anterior debe abarcar tambien content y el fullname del author
 
-    @RequestMapping(value = "/article/palabras/{palabra}", method = RequestMethod.GET)
-    public ResponseEntity<?> buscarPalabras(@PathVariable("palabra") String palabra){
-        List<Article> articleList = articleRepository.findByTitleContainingAndDescriptionContaining(palabra, palabra);
-        List<ArticleDTO> articleDTOS = articleList.stream()
+   Intento pero no funciona:
+    @RequestMapping(value = "/article/palabras/titulo/{description}", method = RequestMethod.GET)
+    public ResponseEntity<?> buscarPalabrasEnTitulo(@PathVariable("description") String titulo, String descripcion) {
+        List<Article> articuloPorPalabrasTitulo = articleRepository.findByTitleContainingAndDescriptionContaining(titulo, descripcion);
+        List<ArticleDTO> articleDTOSpalabrasTitulo = articuloPorPalabrasTitulo.stream()
                 .map(articleConverter::toDTO)
                 .collect(Collectors.toList());
-        return new ResponseEntity<>(articleDTOS, HttpStatus.OK);}
+        return new ResponseEntity<>(articleDTOSpalabrasTitulo, HttpStatus.OK);
 
      */
 

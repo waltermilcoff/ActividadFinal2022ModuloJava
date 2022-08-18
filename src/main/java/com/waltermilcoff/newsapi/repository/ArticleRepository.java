@@ -17,7 +17,3 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     List<Article> findByTitleContainingAndDescriptionContaining(String title, String description);
 }
-/*
- Page<Article> findByTitleContainingAndPublishedOrDescriptionContainingAndPublished(String word,
- boolean siPubli, String word2, boolean siPubli2, Pageable pageable);
- */
