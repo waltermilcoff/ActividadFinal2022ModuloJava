@@ -1,12 +1,18 @@
 package com.waltermilcoff.newsapi.controller;
+import com.waltermilcoff.newsapi.converter.ArticleConverter;
 import com.waltermilcoff.newsapi.domain.Article;
+import com.waltermilcoff.newsapi.dto.ArticleDTO;
 import com.waltermilcoff.newsapi.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class ArticleController {
@@ -15,14 +21,19 @@ public class ArticleController {
     private final ArticleRepository articleRepository;
 
     @Autowired
-    public ArticleController(ArticleRepository articleRepository) {
+    private final ArticleConverter articleConverter;
+
+    @Autowired
+    public ArticleController(ArticleRepository articleRepository, ArticleConverter articleConverter) {
+
         this.articleRepository = articleRepository;
+        this.articleConverter = articleConverter;
     }
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public Article createArticle(@RequestBody Article article){
 
-       return articleRepository.save(article);
+        return articleRepository.save(article);
     }
 
     @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
@@ -31,9 +42,20 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/article", method = RequestMethod.GET)
-    public ResponseEntity<?> getAll() {
-        return new ResponseEntity(articleRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> buscarArticulos() {
+        List<Article> article = articleRepository.findAll();
+        List<ArticleDTO> articleDTOS = article.stream()
+                .map(articleConverter::toDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(articleDTOS, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/article/paginado", method = RequestMethod.GET)
+    public ResponseEntity<?> findByAll(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "5") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Article> pageResult = articleRepository.findAll(pageable);
+        return new ResponseEntity<>(pageResult, HttpStatus.OK);}
 
     @RequestMapping(value = "/article/{id}", method = RequestMethod.PUT)
     public Article modificarArticulo(@PathVariable("id") Long id, @RequestBody Article article) {

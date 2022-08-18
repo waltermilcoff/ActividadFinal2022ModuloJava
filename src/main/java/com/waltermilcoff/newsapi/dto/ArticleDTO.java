@@ -1,36 +1,26 @@
-package com.waltermilcoff.newsapi.domain;
-import javax.persistence.*;
+package com.waltermilcoff.newsapi.dto;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Entity
-public class Article {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ArticleDTO {
     private Long id;
     private String title;
     private String description;
     private String url;
     private String urlToImage;
-    private LocalDate publishedAt;
     private String content;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Source source;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Author author;
 
-    public Article(String title, String description, String url, String urlToImage, LocalDate publishedAt, String content, Source source, Author author) {
+    public ArticleDTO() {
+    }
+
+    public ArticleDTO(Long id, String title, String description, String url, String urlToImage, String content) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.url = url;
         this.urlToImage = urlToImage;
-        this.publishedAt = publishedAt;
         this.content = content;
-        this.source = source;
-        this.author = author;
-    }
-
-    public Article() {
     }
 
     public Long getId() {
@@ -73,14 +63,6 @@ public class Article {
         this.urlToImage = urlToImage;
     }
 
-    public LocalDate getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(LocalDate publishedAt) {
-        this.publishedAt = publishedAt;
-    }
-
     public String getContent() {
         return content;
     }
@@ -89,47 +71,28 @@ public class Article {
         this.content = content;
     }
 
-    public Source getSource() {
-        return source;
-    }
-
-    public void setSource(Source source) {
-        this.source = source;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Article article = (Article) o;
-        return Objects.equals(id, article.id) && Objects.equals(title, article.title) && Objects.equals(description, article.description) && Objects.equals(url, article.url) && Objects.equals(urlToImage, article.urlToImage) && Objects.equals(publishedAt, article.publishedAt) && Objects.equals(content, article.content) && Objects.equals(source, article.source) && Objects.equals(author, article.author);
+        ArticleDTO that = (ArticleDTO) o;
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(url, that.url) && Objects.equals(urlToImage, that.urlToImage) && Objects.equals(content, that.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, url, urlToImage, publishedAt, content, source, author);
+        return Objects.hash(id, title, description, url, urlToImage, content);
     }
 
     @Override
     public String toString() {
-        return "Article{" +
+        return "ArticleDTO{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
                 ", urlToImage='" + urlToImage + '\'' +
-                ", publishedAt=" + publishedAt +
                 ", content='" + content + '\'' +
-                ", source=" + source +
-                ", author=" + author +
                 '}';
     }
 }
